@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import SensorCard from '../components/SensorCard';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function HomeScreen() {
-  const [temperature, setTemperature] = useState(27.5);
-
- 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTemperature((prev) => (prev + (Math.random() * 0.5 - 0.25)).toFixed(2));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🌊 WaveSense Dashboard</Text>
-      <SensorCard label="Temperature" value={temperature} unit="°C" />
+      <Text style={styles.title}>🌊 WaveSense</Text>
+      <Text style={styles.subtitle}>Monitor Water Parameters Instantly</Text>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Bluetooth')}
+      >
+        <Text style={styles.buttonText}>Connect via Bluetooth</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#f0fdfa' },
-  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 20, color: '#00695c' },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e6f7ff' },
+  title: { fontSize: 32, fontWeight: 'bold', color: '#0077b6' },
+  subtitle: { fontSize: 16, marginVertical: 20, color: '#023e8a' },
+  button: { backgroundColor: '#0096c7', padding: 15, borderRadius: 10 },
+  buttonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
 });
